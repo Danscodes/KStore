@@ -20,8 +20,10 @@ include('functions.php');
 	<div class="header">
 		<div class="navbar">
 			<ul>
-				<li style="font-size: 30px; font-weight: bold;">Project Board</li>
-				<li style="float: right;"><small>
+				<li style="font-size: 30px; font-weight: bold;">
+				<a href="share.php" style="color: white;">Products</a>
+				<a href="share.php" style="color: white;">Transaction</a></li>
+				 <li style="float: right;"><small>
                   <i style="color: #888;"><?php if (isset($_SESSION['success'])) : ?>
                             <?php 
                               echo $_SESSION['success']; 
@@ -35,20 +37,20 @@ include('functions.php');
                         <i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
                         | <a href="index.php?logout='1'" style="color: white;"> <i class='bx bx-power-off' ></i>Logout</a>
                       </small>
-                    <?php endif ?></li>
+                    <?php endif ?></li> 
 			</ul>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-2 col-s-2 sidebar">
+		<!-- <div class="col-2 col-s-2 sidebar">
 			<ul>
 		      <li <?php if($load == 'share') {echo 'class="active"';} ?>><a href="index.php?page=share"><i class='bx bx-share-alt'></i>Shared Files</a></li>
 		      <li <?php if($load == 'files') {echo 'class="active"';} ?>><a href="index.php?page=files"><i class='bx bx-file-blank'></i>Files</a></li>
 		    </ul>
-		</div>
+		</div> -->
 
-		<div class="col-10 col-s-9 content">
+		<!-- <div class="col-10 col-s-9 content">
 			<?php
 	          switch ($load) {
 	            case 'share':
@@ -62,7 +64,7 @@ include('functions.php');
 	              break;  
 	          	}
 			?>
-		</div>
+		</div> -->
 	</div>
 
 </body>

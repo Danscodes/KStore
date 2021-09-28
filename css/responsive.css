@@ -18,7 +18,7 @@ html {
 }
 
 .header {
-  background-color: #003366;
+  background-color: #52595D;
   color: #ffffff;
   padding: 20px;
 }
@@ -36,6 +36,7 @@ html {
   color: white;
   text-decoration: none;
   padding: 12px 14px;
+  align: center;
 }
 
 .navbar li a:hover {
