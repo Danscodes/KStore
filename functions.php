@@ -2,7 +2,7 @@
 session_start();
 
 // connect to database
-$db = mysqli_connect('localhost', 'root', '', 'db_fms');
+$db = mysqli_connect('localhost', 'root', '', 'db_kstore');
 
 // variable declaration
 $username = "";
@@ -25,8 +25,7 @@ function register(){
     // defined below to escape form values
 	$username    =  e($_POST['username']);
 	$name    =  e($_POST['name']);
-	$email       =  e($_POST['email']);
-	$user_type = e($_POST['user_type']);
+	$role = e($_POST['role']);
 	$password_1  =  e($_POST['password_1']);
 	$password_2  =  e($_POST['password_2']);
 
@@ -40,7 +39,7 @@ function register(){
 	if (empty($email)) { 
 		array_push($errors, "Email is required"); 
 	}
-	if (empty($user_type)) { 
+	if (empty($role)) { 
 		array_push($errors, "User type is required"); 
 	}
 	if (empty($password_1)) { 
