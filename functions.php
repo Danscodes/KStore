@@ -2,7 +2,7 @@
 session_start();
 
 // connect to database
-$db = mysqli_connect('localhost', 'root', '', 'db_kstore');
+$db = mysqli_connect('localhost', 'root', '', 'db_fms');
 
 // variable declaration
 $username = "";
@@ -16,6 +16,45 @@ if (isset($_POST['register_btn'])) {
 	register();
 }
 
+
+if (isset($_POST['add_product_btn'])) {
+	product();
+}
+
+// Add Product 
+function product(){
+	// call these variables with the global keyword to make them available in function
+	global $db, $errors, $product_name, $price;
+
+	// receive all input values from the form. Call the e() function
+    // defined below to escape form values
+	$product_name    =  e($_POST['productname']);
+	$price    =  e($_POST['price']);
+	
+
+	// form validation: ensure that the form is correctly filled
+	if (empty($product_name)) { 
+		array_push($errors, "Product Name is required"); 
+	}
+	if (empty($price)) { 
+		array_push($errors, "Enter Price"); 
+	}
+	// if (empty($password_1)) { 
+	// 	array_push($errors, "Password is required"); 
+	// }
+	// if ($password_1 != $password_2) {
+	// 	array_push($errors, "The two passwords do not match");
+	// }
+
+	// register user if there are no errors in the form
+	if (count($errors) == 0) {
+		$query = "INSERT INTO product (product_name, price, role) 
+		VALUES('$product_name', '$price', '$role')";
+		mysqli_query($db, $query);
+		header('location: index.php?page=product.php');	
+
+	}
+}
 // REGISTER USER
 function register(){
 	// call these variables with the global keyword to make them available in function
@@ -25,9 +64,9 @@ function register(){
     // defined below to escape form values
 	$username    =  e($_POST['username']);
 	$name    =  e($_POST['name']);
-	$role = e($_POST['role']);
-	$password_1  =  e($_POST['password_1']);
-	$password_2  =  e($_POST['password_2']);
+	$role = e($_POST['user_type']);
+	// $password_1  =  e($_POST['password_1']);
+	// $password_2  =  e($_POST['password_2']);
 
 	// form validation: ensure that the form is correctly filled
 	if (empty($username)) { 
@@ -36,18 +75,12 @@ function register(){
 	if (empty($name)) { 
 		array_push($errors, "Name is required"); 
 	}
-	if (empty($email)) { 
-		array_push($errors, "Email is required"); 
-	}
-	if (empty($role)) { 
-		array_push($errors, "User type is required"); 
-	}
-	if (empty($password_1)) { 
-		array_push($errors, "Password is required"); 
-	}
-	if ($password_1 != $password_2) {
-		array_push($errors, "The two passwords do not match");
-	}
+	// if (empty($password_1)) { 
+	// 	array_push($errors, "Password is required"); 
+	// }
+	// if ($password_1 != $password_2) {
+	// 	array_push($errors, "The two passwords do not match");
+	// }
 
 	// register user if there are no errors in the form
 	if (count($errors) == 0) {
@@ -144,7 +177,7 @@ function login(){
 	if (count($errors) == 0) {
 		$password = md5($password);
 
-		$query = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
+		$query = "SELECT * FROM user WHERE username='$username' AND password='$password' LIMIT 1";
 		$results = mysqli_query($db, $query);
 
 		if (mysqli_num_rows($results) == 1) { // user found

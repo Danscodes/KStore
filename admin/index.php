@@ -48,7 +48,7 @@ include('../functions.php');
 	<div class="row">
 		<div class="col-2 col-s-2 sidebar">
 			<ul>
-		      <li <?php if($load == 'share') {echo 'class="active"';} ?>><a href="index.php?page=share"><i class='bx bx-share-alt'></i>Shared Files</a></li>
+		      <li <?php if($load == 'share') {echo 'class="active"';} ?>><a href="index.php?page=product"><i class='bx bx-product-alt'></i>Product</a></li>
 		      <li <?php if($load == 'files') {echo 'class="active"';} ?>><a href="index.php?page=files"><i class='bx bx-file-blank'></i>Files</a></li>
 		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li>
 		    </ul>
@@ -57,8 +57,8 @@ include('../functions.php');
 		<div class="col-10 col-s-9 content">
 			<?php
 	          switch ($load) {
-	            case 'share':
-	            require_once('share.php');
+	            case 'product':
+	            require_once('product.php');
 	            break;
 	            case 'files':
 	              require_once('files.php');
@@ -73,7 +73,7 @@ include('../functions.php');
 	              require_once('delete_user.php');
 	              break;   
 	            default:
-	              require_once('share.php');
+	              require_once('product.php');
 	              break;  
 	          	}
 			?>

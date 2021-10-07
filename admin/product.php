@@ -37,33 +37,18 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 								<?php echo display_error(); ?>
 
 								<div class="input-group">
-									<label>product Name</label>
-									<input type="text" name="username" value="<?php echo $username; ?>">
+									<label>Product Name</label>
+									<input type="text" name="productname">
 								</div>
 								<div class="input-group">
 									<label>Price</label>
-									<input type="text" name="name" value="<?php echo $name; ?>">
+									<input type="text" name="price" >
 								</div>
 								
-								<div class="input-group">
-									<label>Role</label>
-									<select name="user_type" id="user_type" >
-										<option value=""></option>
-										<option value="admin">Admin</option>
-										<option value="user">User</option>
-									</select>
-								</div>
-								<div class="input-group">
-									<label>Password</label>
-									<input type="password" name="password_1">
-								</div>
-								<div class="input-group">
-									<label>Confirm password</label>
-									<input type="password" name="password_2">
-								</div>
+								
 								<br>
 								<div class="input-group">
-									<button type="submit" class="btn" name="register_btn"> + Add Product</button>
+									<button type="submit" class="btn" name="add_product_btn"> + Add Product</button>
 								</div>
 							</form>
 				    	</div>
@@ -81,8 +66,7 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 			<tr>
 				<th width="25%">Product Name</th>
 			    <th width="35%">Price</th>
-			    <th width="25%">Role</th>
-			    <th width="15%">Product Update</th>
+			    <th width="10%">Product Update</th>
 			</tr>
 			<?php
 						while($r = mysqli_fetch_assoc($q))
@@ -91,15 +75,13 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 			 	<tr>
 			 		<td><?php echo $r['product_name'];?></td>
 					<td><?php echo $r['price'];?></td>
-					<td><?php echo $r['role'];?></td>
-
-					<?php $user_id = $r['user_id']?>
+					
 					<td> 
 						<div class="dropdown">
 						  <button class="dropbtn">Action</button>
 						  <div class="dropdown-content">
-						    <a href = "index.php?page=update&user_id=<?php echo $user_id;?>"> Update </a>
-							<a href = "index.php?page=delete&user_id=<?php echo $user_id;?>&name=<?php echo $r['name'];?>"> Delete </a>
+						    <a href = "index.php?page=update&user_id=<?php echo $product_name;?>"> Update </a>
+							<a href = "index.php?page=delete&user_id=<?php echo $product_name;?>&product_nam=<?php echo $r['product_name'];?>"> Delete </a>
 						  </div>
 						</div>
 					</td>
