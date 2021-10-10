@@ -25,7 +25,12 @@ include('../functions.php');
 	<div class="header">
 		<div class="navbar">
 			<ul>
-				<li style="font-size: 30px; font-weight: bold;">Project Board</li>
+			<li <?php if($load == 'product') {echo 'class="active"';} ?>><a href="index.php?page=product"><i class='bx bx-product-alt'></i>Product</a></li>
+			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=transactions"><i class='bx bx-product-alt'></i>Transactions</a></li>
+		   
+		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li>
+		    
+
 				<li style="float: right;"><small>
                   <i style="color: #888;"><?php if (isset($_SESSION['success'])) : ?>
                             <?php 
@@ -46,22 +51,16 @@ include('../functions.php');
 	</div>
 
 	<div class="row">
-		<div class="col-2 col-s-2 sidebar">
-			<ul>
-		      <li <?php if($load == 'share') {echo 'class="active"';} ?>><a href="index.php?page=product"><i class='bx bx-product-alt'></i>Product</a></li>
-		      <li <?php if($load == 'files') {echo 'class="active"';} ?>><a href="index.php?page=files"><i class='bx bx-file-blank'></i>Files</a></li>
-		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li>
-		    </ul>
-		</div>
+	
 
-		<div class="col-10 col-s-9 content">
+		<div class="col-12 col-s-12 content">
 			<?php
 	          switch ($load) {
 	            case 'product':
 	            require_once('product.php');
 	            break;
-	            case 'files':
-	              require_once('files.php');
+	            case 'transactions':
+	              require_once('transactions.php');
 	              break;
 	            case 'users':
 	              require_once('users.php');
