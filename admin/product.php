@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-$db = mysqli_select_db($conn,"db_fms");
+$db = mysqli_select_db($conn,"db_kstore");
 $sql = "SELECT * FROM product";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
