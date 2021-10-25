@@ -26,6 +26,8 @@ include('../functions.php');
 		<div class="navbar">
 			<ul>
 			<li <?php if($load == 'product') {echo 'class="active"';} ?>><a href="index.php?page=product"><i class='bx bx-product-alt'></i>Product</a></li>
+			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=category"><i class='bx bx-product-alt'></i>Category</a></li>
+		   
 			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=transactions"><i class='bx bx-product-alt'></i>Transactions</a></li>
 		   
 		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li>
@@ -59,6 +61,9 @@ include('../functions.php');
 	            case 'product':
 	            require_once('product.php');
 	            break;
+				case 'category':
+					require_once('category.php');
+					break;
 	            case 'transactions':
 	              require_once('transactions.php');
 	              break;

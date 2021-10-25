@@ -21,6 +21,12 @@ if (isset($_POST['add_product_btn'])) {
 	product();
 }
 
+
+if (isset($_POST['add_category_btn'])) {
+	add_category();
+}
+
+
 // Add Product 
 function product(){
 	// call these variables with the global keyword to make them available in function
@@ -30,7 +36,7 @@ function product(){
     // defined below to escape form values
 	$product_name    =  e($_POST['productname']);
 	$price    =  e($_POST['price']);
-	
+	$category    =  e($_POST['category']);
 
 	// form validation: ensure that the form is correctly filled
 	if (empty($product_name)) { 
@@ -48,13 +54,42 @@ function product(){
 
 	// register user if there are no errors in the form
 	if (count($errors) == 0) {
-		$query = "INSERT INTO product (product_name, price, role) 
-		VALUES('$product_name', '$price', '$role')";
+		$query = "INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`) VALUES (NULL, '
+		$category', '$product_name', '$category');";
 		mysqli_query($db, $query);
-		header('location: index.php?page=product.php');	
+		header('location: index.php?page=product');	
 
 	}
 }
+// Add Product 
+function add_category(){
+	// call these variables with the global keyword to make them available in function
+	global $db, $errors, $category_name;
+
+	// receive all input values from the form. Call the e() function
+    // defined below to escape form values
+	$category_name    =  e($_POST['category_name']);
+
+	// form validation: ensure that the form is correctly filled
+	if (empty($category_name)) { 
+		array_push($errors, "Category Name is required"); 
+	}
+	// if (empty($password_1)) { 
+	// 	array_push($errors, "Password is required"); 
+	// }
+	// if ($password_1 != $password_2) {
+	// 	array_push($errors, "The two passwords do not match");
+	// }
+
+	// register user if there are no errors in the form
+	if (count($errors) == 0) {
+		$query = "INSERT INTO `category` (`category_id`, `name`) VALUES (NULL, '$category_name')";
+		mysqli_query($db, $query);
+		header('location: index.php?page=category');	
+
+	}
+}
+
 // REGISTER USER
 function register(){
 	// call these variables with the global keyword to make them available in function

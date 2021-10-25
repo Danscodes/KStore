@@ -2,18 +2,12 @@
 <?php
 $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
 $db = mysqli_select_db($conn,"db_kstore");
-$sql = "SELECT * FROM product";
-$sql2 = "SELECT * FROM category";
+$sql = "SELECT * FROM category";
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
-$q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 
  include_once('../functions.php')
 ?>
 <html>
-<style>
-
-
-</style>
 <head>
 	<meta charset="utf-8">
 	<title></title>
@@ -24,7 +18,7 @@ $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 <div class="button-align">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
-			<button class="modal-button" href="#myModal1"> + Add Product</button>
+			<button class="modal-button" href="#myModal1"> + Add Category</button>
 
 				<!-- The Modal -->
 				<div id="myModal1" class="modal">
@@ -33,39 +27,25 @@ $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 				  <div class="modal-content">
 				  	<div class="modal-header">
 				      <span class="close">×</span>
-				      <h2>Add Product</h2>
+				      <h2>Add Category</h2>
 			    	</div>
+
 				    <div class="modal-body">
 				    	<div class="form-body">
-				    		<form method="post" action="index.php?page=users.php">
+				    		<form method="post" action="index.php?page=category.php">
 
 								<?php echo display_error(); ?>
 
 								<div class="input-group">
-									<label>Product Name</label>
-									<input type="text" name="productname">
+									<label>Category Name</label>
+									<input type="text" name="category_name">
 								</div>
-								<div class="input-group">
-									<label>Price</label>
-									<input type="text" name="price" >
-								</div>
-								<div class="custom-select" style="width:500px;">
-								<label>Select Category</label>
-								<select name="category" id="category">
-								<?php
-									while($row = mysqli_fetch_assoc($q2))
-									{
-								?> 
-								<option value="<?php echo $row['category_id']?>"><?php echo  $row['name'];?></option>
-								<?php
-								}
-								?>
-								</select>
 							
-								</div>
+								
+								
 								<br>
 								<div class="input-group">
-									<button type="submit" class="btn" name="add_product_btn"> + Add Product</button>
+									<button type="submit" class="btn" name="add_category_btn"> + Add Category</button>
 								</div>
 							</form>
 				    	</div>
@@ -81,24 +61,24 @@ $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 	<div id="tbody">
 		<table width="100%">
 			<tr>
-				<th width="25%">Product Name</th>
-			    <th width="35%">Price</th>
-			    <th width="10%">Product Update</th>
+		
+			    <th width="35%">Name</th>
+			    <th width="10%">Category Update</th>
 			</tr>
 			<?php
 						while($r = mysqli_fetch_assoc($q))
 						{
 					?> 
 			 	<tr>
-			 		<td><?php echo $r['product_name'];?></td>
-					<td><?php echo $r['price'];?></td>
+			 		<td><?php echo $r['name'];?></td>
+					
 					
 					<td> 
 						<div class="dropdown">
 						  <button class="dropbtn">Action</button>
 						  <div class="dropdown-content">
 						    <a href = "index.php?page=update&user_id=<?php echo $product_name;?>"> Update </a>
-							<a href = "index.php?page=delete&user_id=<?php echo $product_name;?>&product_nam=<?php echo $r['product_name'];?>"> Delete </a>
+							<a href = "index.php?page=delete&user_id=<?php echo $product_name;?>&product_nam=<?php echo $r['name'];?>"> Delete </a>
 						  </div>
 						</div>
 					</td>
