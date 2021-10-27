@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2021 at 11:56 AM
+-- Generation Time: Oct 27, 2021 at 10:06 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -24,24 +24,74 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `cart_id` int(255) NOT NULL,
+  `product_id` int(255) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE `category` (
+  `category_id` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `name`) VALUES
+(1, 'food'),
+(2, 'drinks'),
+(3, 'desserts');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
   `product_id` int(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `product_name` varchar(255) NOT NULL,
-  `price` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL
+  `price` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `price`, `role`) VALUES
-(1, 'test5', '55', ''),
-(2, 'item2', '55', ''),
-(3, 'item3', '11', '');
+INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`) VALUES
+(1, 0, 'test5', '55'),
+(2, 0, 'item2', '55'),
+(3, 0, 'item3', '11'),
+(4, 0, 'test item', '55'),
+(5, 0, 'prod', 'test'),
+(6, 1, 'tets', '55'),
+(7, 2, 'item1', '5'),
+(8, 3, 'item3', '3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
+--
+
+CREATE TABLE `transactions` (
+  `trans_id` int(255) NOT NULL,
+  `user_id` int(255) NOT NULL,
+  `transaction_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -75,10 +125,28 @@ INSERT INTO `users` (`user_id`, `username`, `name`, `email`, `user_type`, `passw
 --
 
 --
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`cart_id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_id`);
+
+--
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
+
+--
+-- Indexes for table `transactions`
+--
+ALTER TABLE `transactions`
+  ADD PRIMARY KEY (`trans_id`);
 
 --
 -- Indexes for table `users`
@@ -91,10 +159,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `cart_id` int(255) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `category_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `transactions`
+--
+ALTER TABLE `transactions`
+  MODIFY `trans_id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
