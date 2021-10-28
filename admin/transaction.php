@@ -54,7 +54,7 @@ function get_products_data(){
     
       "ajax":{
         "type":"POST",
-        "url":"ajax/datatables/get_transactions.php",
+        "url":"ajax/datatables/get_files_data.php",
         "data":"",
         "processing":true
       },
