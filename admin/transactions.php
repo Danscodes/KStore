@@ -26,8 +26,6 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
                   
                       <th width="35%">Transaction Number</th>
                       <th width="20%">User</th>
-                      <th width="25%">Date of transaction</th>
-                      <th width="25%">time to pick up</th>
                       <th width="25%">status</th>
                       <th width="20%">Action</th>
              
@@ -60,23 +58,22 @@ function get_products_data(){
       },
       "columns":[
       {
-        "data":"filename"
+        "data":"trans_id"
       },
 	  {
-        "data":"date_uploaded",
+        "data":"user_id",
       },
       {
-        "data":"remarks",
+        "data":"status",
       },
       {
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a href="+row.file_path+" rel='nofollow'>View</a><a href="+row.file_path+" download>Download</a><a onclick='selected_id("+JSON.stringify(row)+")'>Rename</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a><a href='index.php?page=sharefiles&f_id="+JSON.stringify(row.f_id)+"&filename="+JSON.stringify(row.filename)+"'>Share</a></div></div>";
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a>Accept</><a>Cancel</></div></div>";
         }
       },
       ]
     });
   }
-
 
   function delete_file(val){
 	if (confirm('Are you sure you want to delete '+val.filename+'?')) {
