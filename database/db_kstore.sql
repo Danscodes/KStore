@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2021 at 10:06 AM
+-- Generation Time: Oct 30, 2021 at 04:32 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -31,8 +31,19 @@ CREATE TABLE `cart` (
   `cart_id` int(255) NOT NULL,
   `product_id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
-  `status` int(11) NOT NULL
+  `transaction_id` int(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `quantity` int(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cart_id`, `product_id`, `user_id`, `transaction_id`, `product_name`, `quantity`, `status`) VALUES
+(2, 6, 3, 7, 'tets', 1, 'pending'),
+(3, 7, 3, 7, 'item1', 1, 'pending');
 
 -- --------------------------------------------------------
 
@@ -79,7 +90,8 @@ INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`) VAL
 (5, 0, 'prod', 'test'),
 (6, 1, 'tets', '55'),
 (7, 2, 'item1', '5'),
-(8, 3, 'item3', '3');
+(8, 3, 'item3', '3'),
+(9, 1, 'test5', '1');
 
 -- --------------------------------------------------------
 
@@ -90,8 +102,19 @@ INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`) VAL
 CREATE TABLE `transactions` (
   `trans_id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
-  `transaction_date` datetime NOT NULL
+  `transaction_date` datetime NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`trans_id`, `user_id`, `transaction_date`, `status`) VALUES
+(1, 3, '2021-10-29 20:17:10', 'requested'),
+(2, 3, '2021-10-29 20:17:10', 'requested'),
+(3, 3, '2021-10-29 20:17:10', 'requested'),
+(4, 3, '2021-10-29 20:17:10', 'requested');
 
 -- --------------------------------------------------------
 
@@ -118,7 +141,8 @@ INSERT INTO `users` (`user_id`, `username`, `name`, `email`, `user_type`, `passw
 (11, '123', 'yaps', 'yaps@yaps', 'user', '202cb962ac59075b964b07152d234b70'),
 (13, '123', 'test', 'test@gmail.com', 'admin', '202cb962ac59075b964b07152d234b70'),
 (18, 'a', 'a', '', 'admin', 'd41d8cd98f00b204e9800998ecf8427e'),
-(19, '1', '1', '', 'admin', 'd41d8cd98f00b204e9800998ecf8427e');
+(19, '1', '1', '', 'admin', 'd41d8cd98f00b204e9800998ecf8427e'),
+(20, 'admin2', 'test', '', 'admin', 'd41d8cd98f00b204e9800998ecf8427e');
 
 --
 -- Indexes for dumped tables
@@ -162,7 +186,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cart_id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -174,19 +198,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `product_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `trans_id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `trans_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
