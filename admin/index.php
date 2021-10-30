@@ -29,7 +29,7 @@ include('../functions.php');
 		<div class="navbar">
 			<ul>
 			<li <?php if($load == 'product') {echo 'class="active"';} ?>><a href="index.php?page=product"><i class='bx bx-product-alt'></i>Product</a></li>
-			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=category"><i class='bx bx-product-alt'></i>Category</a></li>
+			<li <?php if($load == 'category') {echo 'class="active"';} ?>><a href="index.php?page=category"><i class='bx bx-product-alt'></i>Category</a></li>
 		   
 			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=transactions"><i class='bx bx-product-alt'></i>Transactions</a></li>
 		   
