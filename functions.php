@@ -100,6 +100,7 @@ function register(){
 	$username    =  e($_POST['username']);
 	$name    =  e($_POST['name']);
 	$role = e($_POST['user_type']);
+	$email = e($_POST['email']);
 	// $password_1  =  e($_POST['password_1']);
 	// $password_2  =  e($_POST['password_2']);
 
