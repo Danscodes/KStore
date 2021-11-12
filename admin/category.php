@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <?php
-$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-$db = mysqli_select_db($conn,"db_kstore");
-$sql = "SELECT * FROM category";
-$q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
-
  include_once('../functions.php')
 ?>
 <html>
+<style>
+
+
+</style>
 <head>
 	<meta charset="utf-8">
 	<title></title>
@@ -29,10 +28,9 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				      <span class="close">×</span>
 				      <h2>Add Category</h2>
 			    	</div>
-
 				    <div class="modal-body">
 				    	<div class="form-body">
-				    		<form method="post" action="index.php?page=category.php">
+				    		<form method="post" action="add_category.php">
 
 								<?php echo display_error(); ?>
 
@@ -40,13 +38,10 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 									<label>Category Name</label>
 									<input type="text" name="category_name">
 								</div>
-							
-								
-								
-								<br>
 								<div class="input-group">
-									<button type="submit" class="btn" name="add_category_btn"> + Add Category</button>
-								</div>
+								<button type="submit" class="btn"> Add Category</button>
+							</div>
+								
 							</form>
 				    	</div>
 				    </div>
@@ -58,38 +53,101 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 	<hr>
 	<br>
 
+	<div class="first-modal">
+			<!-- Trigger/Open The Modal -->
+	
+				<!-- The update Modal -->
+				<div id="UpdateFile" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				  	<div class="modal-header">
+				      <span class="close">×</span>
+				      <h2>Edit Category</h2>
+			    	</div>
+
+				    <div class="modal-body">
+				    	<div class="form-body">
+						<form action="update_category.php" method="post" enctype="multipart/form-data">
+
+							<div class="input-group" style="display:none">
+								<label>Category id</label>
+								<input type="text" name="u_category_id" id="u_category_id">
+							</div>
+
+							<div class="input-group">
+								<label>Category Name</label>
+								<input type="text" name="u_category_name" id="u_category_name">
+							</div>
+							
+							<br>
+							<div class="input-group">
+								<button type="submit" class="btn"> Edit Category</button>
+							</div>
+						</form>
+				    	</div>
+				    </div>
+				  </div>
+				</div>
+		</div>
 	<div id="tbody">
-		<table width="100%">
-			<tr>
-		
-			    <th width="35%">Name</th>
-			    <th width="10%">Category Update</th>
-			</tr>
-			<?php
-						while($r = mysqli_fetch_assoc($q))
-						{
-					?> 
-			 	<tr>
-			 		<td><?php echo $r['name'];?></td>
-					
-					
-					<td> 
-						<div class="dropdown">
-						  <button class="dropbtn">Action</button>
-						  <div class="dropdown-content">
-						    <a href = "index.php?page=update&user_id=<?php echo $product_name;?>"> Update </a>
-							<a href = "index.php?page=delete&user_id=<?php echo $product_name;?>&product_nam=<?php echo $r['name'];?>"> Delete </a>
-						  </div>
-						</div>
-					</td>
-			 	</tr>
-			 		<?php 
-						}
-					?>
-		</table>
-	</div>
+
+<table class="table table-sm table-bordered" id="mydataTable" width="100%" cellspacing="0">
+			  <thead>
+				<tr>
+				<th width="25%">Category Name</th>
+			    <th width="10%">Action</th>
+				</tr>
+			  </thead>
+			  <tbody>
+		   
+			  </tbody>
+			</table>
+
+</div>
 
 <script>
+$(document).ready(function() {
+	get_category_data();
+} );
+
+function get_category_data(){
+    $("#mydataTable").DataTable().destroy();
+    $("#mydataTable").dataTable({
+    
+      "ajax":{
+        "type":"POST",
+        "url":"ajax/datatables/get_category.php",
+        "data":"",
+        "processing":true
+      },
+      "columns":[
+  
+	  {
+        "data":"category_name"
+      },
+   
+      {
+        "mRender": function(data,type,row){
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a onclick='selected_id("+JSON.stringify(row)+")'>Edit</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
+        }
+      },
+      ]
+    });
+  }
+
+    
+function selected_id(val){
+	
+	var modals = document.querySelectorAll('.modal');
+	modal = document.querySelector('#UpdateFile');
+	modal.style.display = "block";
+	document.getElementById("u_category_id").value = val.category_id;
+	document.getElementById("u_category_name").value = val.category_name;
+
+}
+
+
 // Get the button that opens the modal
 var btn = document.querySelectorAll("button.modal-button");
 
@@ -125,6 +183,30 @@ window.onclick = function(event) {
      }
     }
 }
+
+
+
+function delete_file(val){
+	if (confirm('Are you sure you want to delete '+val.category_name+'?')) {
+  // Save it!
+  url = "./ajax/delete_category.php";
+    
+      $.post(url,{category_id: val.category_id}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=category";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
+
 </script>
 </body>
 </html>

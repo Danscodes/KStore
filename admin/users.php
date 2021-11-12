@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <?php
-$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-$db = mysqli_select_db($conn,"db_kstore");
-$sql = "SELECT * FROM users";
-$q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
-
  include_once('../functions.php')
 ?>
 <html>
@@ -15,7 +10,9 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<div class="button-align">
+
+
+<div class="col-2">
 		<div class="first-modal">
 			<!-- Trigger/Open The Modal -->
 			<button class="modal-button" href="#myModal1"> + New User</button>
@@ -27,31 +24,28 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 				  <div class="modal-content">
 				  	<div class="modal-header">
 				      <span class="close">×</span>
-				      <h2>New User</h2>
+				      <h2>Add User</h2>
 			    	</div>
 
 				    <div class="modal-body">
 				    	<div class="form-body">
-				    		<form method="post" action="index.php?page=users.php">
-
-								<?php echo display_error(); ?>
-
-								<div class="input-group">
+						<form method="post" action="index.php?page=users.php">
+						<div class="input-group">
 									<label>Username</label>
-									<input type="text" name="username" value="<?php echo $username; ?>">
+									<input type="text" name="username" >
 								</div>
 								<div class="input-group">
 									<label>Name</label>
-									<input type="text" name="name" value="<?php echo $name; ?>">
+									<input type="text" name="name">
 								</div>
 								<div class="input-group">
 									<label>Email</label>
-									<input type="email" name="email" value="<?php echo $email; ?>">
+									<input type="email" name="email">
 								</div>
 								<div class="input-group">
 									<label>User type</label>
 									<select name="user_type" id="user_type" >
-										<option value=""></option>
+									
 										<option value="admin">Admin</option>
 										<option value="user">User</option>
 									</select>
@@ -68,53 +62,173 @@ $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 								<div class="input-group">
 									<button type="submit" class="btn" name="register_btn"> + Add user</button>
 								</div>
-							</form>
+						</form>
 				    	</div>
 				    </div>
 				  </div>
 				</div>
 		</div>
 </div>
-	<br>
-	<hr>
-	<br>
+	
+<div class="first-modal">
+			<!-- Trigger/Open The Modal -->
+	
+				<!-- The update Modal -->
+				<div id="UpdateFile" class="modal">
 
-	<div id="tbody">
-		<table width="100%">
-			<tr>
-				<th width="20%">Name</th>
-			    <th width="30%">Username</th>
-			    <th width="20%">Email</th>
-			    <th width="20%">Type</th>
-			    <th width="30%"></th>
-			</tr>
-			<?php
-						while($r = mysqli_fetch_assoc($q))
-						{
-					?> 
-			 	<tr>
-			 		<td><?php echo $r['name'];?></td>
-					<td><?php echo $r['username'];?></td>
-					<td><?php echo $r['email'];?></td>
-					<td><?php echo $r['user_type'];?></td>
-					<?php $user_id = $r['user_id']?>
-					<td> 
-						<div class="dropdown">
-						  <button class="dropbtn">Action</button>
-						  <div class="dropdown-content">
-						    <a href = "index.php?page=update&user_id=<?php echo $user_id;?>"> Update </a>
-							<a href = "index.php?page=delete&user_id=<?php echo $user_id;?>&name=<?php echo $r['name'];?>"> Delete </a>
-						  </div>
-						</div>
-					</td>
-			 	</tr>
-			 		<?php 
-						}
-					?>
-		</table>
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				  	<div class="modal-header">
+				      <span class="close">×</span>
+				      <h2>Update User</h2>
+			    	</div>
+
+				    <div class="modal-body">
+				    	<div class="form-body">
+						<form action="update_user.php" method="post" enctype="multipart/form-data">
+						<div class="input-group">
+									<label style="display:none">user_id</label>
+									<input style="display:none" type="text" name="u_user_id" id="u_user_id">
+								</div>
+						<div class="input-group">
+									<label>Username</label>
+									<input type="text" name="u_username" id="u_username">
+								</div>
+								<div class="input-group">
+									<label>Name</label>
+									<input type="text" name="u_name" id="u_name">
+								</div>
+								<div class="input-group">
+									<label>Email</label>
+									<input type="email" name="u_email" id="u_email">
+								</div>
+								<div class="input-group">
+									<label>User type</label>
+									<select name="u_user_type" id="u_user_type" style="  height: 40px;
+									width: 93%;
+									padding: 5px 10px;
+									background: white;
+									font-size: 16px;
+									border-radius: 5px;
+									border: 1px solid gray;">
+									
+										<option value="admin">Admin</option>
+										<option value="user">User</option>
+									</select>
+								</div>
+								
+								<br>
+								<div class="input-group">
+									<button type="submit" class="btn" name="register_btn"> + Update User</button>
+								</div>
+						</form>
+				    	</div>
+				    </div>
+				  </div>
+				</div>
+		</div>
+<div id="tbody">
+
+	<table class="table table-sm table-bordered" id="mydataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th width="35%">Name</th>
+                      <th width="20%">Email</th>
+					  <th width="20%">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+               
+                  </tbody>
+                </table>
+	
 	</div>
 
+	
+
+	
 <script>
+$(document).ready(function() {
+	get_products_data();
+} );
+
+function get_products_data(){
+    $("#mydataTable").DataTable().destroy();
+    $("#mydataTable").dataTable({
+    
+      "ajax":{
+        "type":"POST",
+        "url":"ajax/datatables/get_users.php",
+        "data":"",
+        "processing":true
+      },
+      "columns":[
+      {
+        "data":"name"
+      },
+	  {
+        "data":"email",
+      },
+      {
+        "mRender": function(data,type,row){
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a onclick='selected_id("+JSON.stringify(row)+")'>Edit User</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
+        }
+      },
+      ]
+    });
+  }
+
+
+  function delete_file(val){
+	if (confirm('Are you sure you want to delete '+val.name+'?')) {
+  // Save it!
+  url = "./ajax/delete_user.php";
+    
+      $.post(url,{user_id: val.user_id}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=users";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
+
+  
+function selected_id(val){
+	
+	var modals = document.querySelectorAll('.modal');
+	modal = document.querySelector('#UpdateFile');
+	modal.style.display = "block";
+	document.getElementById("u_user_id").value = val.user_id;
+	document.getElementById("u_username").value = val.username;
+	document.getElementById("u_name").value = val.name;
+	document.getElementById("u_email").value = val.email;
+	// document.getElementById("u_user_type").value = val.user_type;
+	// document.getElementById("u_user_group").value =val.group_id;
+	document.getElementById("u_password").value = val.password;
+	document.getElementById("u_c_password").value = val.password;
+
+	if(val.user_type=="user"){
+		$("#u_user_type").val(val.user_type);
+	
+		$("#u_user").show()
+		$("#u_user_group").val(val.group_id);
+	}else{
+		$("#u_user_type").val(val.user_type);
+		$("#u_user").hide()
+	
+	}
+
+
+}
+
 // Get the button that opens the modal
 var btn = document.querySelectorAll("button.modal-button");
 
@@ -129,7 +243,7 @@ for (var i = 0; i < btn.length; i++) {
  btn[i].onclick = function(e) {
     e.preventDefault();
     modal = document.querySelector(e.target.getAttribute("href"));
-    modal.style.display = "block";
+	modal.style.display = "block";
  }
 }
 
@@ -150,6 +264,8 @@ window.onclick = function(event) {
      }
     }
 }
+
+
 </script>
 </body>
 </html>

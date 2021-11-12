@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <?php
-$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-$db = mysqli_select_db($conn,"db_fms");
-$sql = "SELECT * FROM files";
-$q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
  include_once('../functions.php')
 ?>
@@ -61,7 +57,7 @@ function get_products_data(){
         "data":"trans_id"
       },
 	  {
-        "data":"user_id",
+        "data":"user_name",
       },
       {
         "data":"status",

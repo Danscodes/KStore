@@ -2,10 +2,10 @@
 <?php
 $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
 $db = mysqli_select_db($conn,"db_kstore");
-$sql = "SELECT * FROM product";
 $sql2 = "SELECT * FROM category";
-$q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
+$sql3 = "SELECT * FROM category";
+$q3= mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 
  include_once('../functions.php')
 ?>
@@ -78,38 +78,133 @@ $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 	<hr>
 	<br>
 
+	<div class="first-modal">
+			<!-- Trigger/Open The Modal -->
+	
+				<!-- The update Modal -->
+				<div id="UpdateFile" class="modal">
+
+				  <!-- Modal content -->
+				  <div class="modal-content">
+				  	<div class="modal-header">
+				      <span class="close">×</span>
+				      <h2>Edit Product</h2>
+			    	</div>
+
+				    <div class="modal-body">
+				    	<div class="form-body">
+						<form action="update_product.php" method="post" enctype="multipart/form-data">
+
+							<div class="input-group" style="display:none">
+								<label>Product id</label>
+								<input type="text" name="u_product_id" id="u_product_id">
+							</div>
+
+							<div class="input-group">
+								<label>Product Name</label>
+								<input type="text" name="u_productname" id="u_productname">
+							</div>
+							<div class="input-group">
+								<label>Price</label>
+								<input type="text" name="u_price"  id="u_price">
+							</div>
+							<div  class="input-group" >
+							<label>Select Category</label>
+							<select name="u_category" id="u_category" style="  height: 40px;
+									width: 93%;
+									padding: 5px 10px;
+									background: white;
+									font-size: 16px;
+									border-radius: 5px;
+									border: 1px solid gray;">
+							<?php
+								while($row = mysqli_fetch_assoc($q3))
+								{
+							?> 
+							<option value="<?php echo $row['category_id']?>"><?php echo  $row['name'];?></option>
+							<?php
+							}
+							?>
+							</select>
+
+							</div>
+							<br>
+							<div class="input-group">
+								<button type="submit" class="btn"> Edit Product</button>
+							</div>
+						</form>
+				    	</div>
+				    </div>
+				  </div>
+				</div>
+		</div>
 	<div id="tbody">
-		<table width="100%">
-			<tr>
+
+<table class="table table-sm table-bordered" id="mydataTable" width="100%" cellspacing="0">
+			  <thead>
+				<tr>
 				<th width="25%">Product Name</th>
+				<th width="35%">Category</th>
 			    <th width="35%">Price</th>
-			    <th width="10%">Product Update</th>
-			</tr>
-			<?php
-						while($r = mysqli_fetch_assoc($q))
-						{
-					?> 
-			 	<tr>
-			 		<td><?php echo $r['product_name'];?></td>
-					<td><?php echo $r['price'];?></td>
-					
-					<td> 
-						<div class="dropdown">
-						  <button class="dropbtn">Action</button>
-						  <div class="dropdown-content">
-						    <a href = "index.php?page=update&user_id=<?php echo $product_name;?>"> Update </a>
-							<a href = "index.php?page=delete&user_id=<?php echo $product_name;?>&product_nam=<?php echo $r['product_name'];?>"> Delete </a>
-						  </div>
-						</div>
-					</td>
-			 	</tr>
-			 		<?php 
-						}
-					?>
-		</table>
-	</div>
+		
+			    <th width="10%">Action</th>
+				</tr>
+			  </thead>
+			  <tbody>
+		   
+			  </tbody>
+			</table>
+
+</div>
 
 <script>
+$(document).ready(function() {
+	get_products_data();
+} );
+
+function get_products_data(){
+    $("#mydataTable").DataTable().destroy();
+    $("#mydataTable").dataTable({
+    
+      "ajax":{
+        "type":"POST",
+        "url":"ajax/datatables/get_products.php",
+        "data":"",
+        "processing":true
+      },
+      "columns":[
+      {
+        "data":"product_name"
+      },
+	  {
+        "data":"category_name"
+      },
+	  {
+        "data":"price",
+      },
+   
+      {
+        "mRender": function(data,type,row){
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a onclick='selected_id("+JSON.stringify(row)+")'>Edit</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
+        }
+      },
+      ]
+    });
+  }
+
+    
+function selected_id(val){
+	
+	var modals = document.querySelectorAll('.modal');
+	modal = document.querySelector('#UpdateFile');
+	modal.style.display = "block";
+	document.getElementById("u_product_id").value = val.product_id;
+	document.getElementById("u_productname").value = val.product_name;
+	document.getElementById("u_price").value = val.price;
+	document.getElementById("u_category").value = val.category_id;
+}
+
+
 // Get the button that opens the modal
 var btn = document.querySelectorAll("button.modal-button");
 
@@ -145,6 +240,30 @@ window.onclick = function(event) {
      }
     }
 }
+
+
+
+function delete_file(val){
+	if (confirm('Are you sure you want to delete '+val.product_name+'?')) {
+  // Save it!
+  url = "./ajax/delete_product.php";
+    
+      $.post(url,{product_id: val.product_id}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=products";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
+
 </script>
 </body>
 </html>
