@@ -25,7 +25,7 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
         {
             $cart_id = $r['cart_id'];
 
-            $query = "UPDATE `cart` SET `transaction_id` = '$last_id' WHERE `cart`.`cart_id` = '$cart_id'";
+            $query = "UPDATE `cart` SET `transaction_id` = '$last_id', `status` = 'requested'  WHERE `cart`.`cart_id` = '$cart_id'";
             $results = mysqli_query($db, $query);
         
         }
