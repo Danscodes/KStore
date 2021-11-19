@@ -64,22 +64,79 @@ function get_products_data(){
       },
       {
         "mRender": function(data,type,row){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a>Accept</><a>Cancel</></div></div>";
-        }
+          if(row.status=="requested"){
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='accept_order("+JSON.stringify(row)+")'>Accept</a><a>Cancel</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
+     
+          }else if(row.status=="pickup"){
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='finish_order("+JSON.stringify(row)+")'>Finish</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
+     
+          }else if(row.status=="finished"){
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
+     
+          }
+
+          // return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='finish_order("+JSON.stringify(row)+")'>Finish</a><a  onclick='accept_order("+JSON.stringify(row)+")'>Accept</a><a>Cancel</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
+     
+       
+       }
       },
       ]
     });
   }
 
   function delete_file(val){
-	if (confirm('Are you sure you want to delete '+val.filename+'?')) {
+	if (confirm('Are you sure you want to delete '+val.trans_id+'?')) {
   // Save it!
   url = "./ajax/delete_file.php";
     
-      $.post(url,{file_id: val.f_id,fname:val.filename}, function(data){
-		console.log(data);
+      $.post(url,{trans_id: val.trans_id}, function(data){
+	    	console.log(data);
             if(data == 1){
 				window.location.href = "index.php?page=files";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
+
+
+function accept_order(val){
+	if (confirm('Are you sure you want to accept order? '+val.trans_id+'?')) {
+  // Save it!
+  url = "./ajax/accept_transaction.php";
+    
+      $.post(url,{trans_id: val.trans_id}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=transactions";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
+
+
+function finish_order(val){
+	if (confirm('Are you sure you want to accept order? '+val.trans_id+'?')) {
+  // Save it!
+  url = "./ajax/finish_transaction.php";
+    
+      $.post(url,{trans_id: val.trans_id}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=transactions";
     		}else{
      
  			}

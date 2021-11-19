@@ -244,3 +244,29 @@ function isAdmin()
 		return false;
 	}
 }
+
+
+// escape string
+function get_total_price($database,$user_id){
+	$sql = "SELECT * FROM `cart` WHERE user_id='$user_id' and status !='finished'";
+	$q = mysqli_query($database,$sql) or die (mysqli_error($database));
+	$total_price =0;
+	while($r = mysqli_fetch_assoc($q))
+    {
+        $product_id= $r["product_id"];
+       
+        $sql2 = "SELECT * FROM product where product_id = '$product_id'";
+        $q2 = mysqli_query($database,$sql2) or die (mysqli_error($database));
+        $price = 0;
+                    while($row = mysqli_fetch_assoc($q2))
+                    {
+                        $price =  $row['price'];
+                        $response["price"] = $row['price'];
+                    }
+		$total_price +=$price*$r["quantity"];
+    }
+
+
+
+	return $total_price;
+}

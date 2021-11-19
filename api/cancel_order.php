@@ -6,10 +6,9 @@ $db = mysqli_connect('localhost', 'root', '', 'db_kstore');
 $sql = "SELECT * FROM `cart` WHERE user_id='$user_id';";
 $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
 
+    $response_array['data'] = array();
 
-
-
-    $query = "INSERT INTO `transactions` (`trans_id`, `user_id`, `transaction_date`, `status`) VALUES (NULL, '$user_id', '2021-10-29 20:17:10.000000','requested'); ";
+    $query = "DELETE FROM `transactions` WHERE `transactions`.`user_id` = '$user_id' and status !='finished'";
     $results = mysqli_query($db, $query);
     
     $response_array['data'] = array();
@@ -18,7 +17,7 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
         $last_id = mysqli_insert_id($db);
 
 
-    $sql2 = "SELECT * FROM `cart` WHERE user_id='$user_id'";
+    $sql2 = "SELECT * FROM `cart` WHERE user_id='$user_id' and status ='requested'";
     $q2 = mysqli_query($db,$sql2) or die (mysqli_error($conn));
 
         while($r = mysqli_fetch_assoc($q2))
@@ -26,7 +25,7 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
         {
             $cart_id = $r['cart_id'];
 
-            $query = "UPDATE `cart` SET `transaction_id` = '$last_id', `status` = 'requested'  WHERE `cart`.`cart_id` = '$cart_id' and status !='finished'";
+            $query = "UPDATE `cart` SET `status` = 'pending', transaction_id = '0' WHERE user_id='$user_id' and status ='requested'";
             $results = mysqli_query($db, $query);
         
         }
@@ -40,7 +39,5 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
     }
     echo json_encode($response_array);
 
-
-    
     
 ?>

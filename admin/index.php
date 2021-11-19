@@ -78,7 +78,11 @@ include('../functions.php');
 	              break;
 	            case 'delete':
 	              require_once('delete_user.php');
-	              break;   
+	              break; 
+				  case 'cart_details':
+					require_once('cart_details.php');
+					break;   
+					
 	            default:
 	              require_once('product.php');
 	              break;  
