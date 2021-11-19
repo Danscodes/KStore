@@ -25,11 +25,8 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($db));
                     }
         $response["total"] =$price*$r['quantity'];  
 
-        if($r['transaction_id']=='0'){
-            $response["total_price"] ='0';     
-        }else{
             $response["total_price"] =get_total_price($db,$user_id);     
-        }          
+              
         $response["product_name"] =$r['product_name'];       
         $response["quantity"] =$r['quantity'];
 	    array_push($response_array['data'], $response);
