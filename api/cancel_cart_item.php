@@ -1,8 +1,6 @@
 <?php
-
+include '../db_connect.php';
 $cart_id=$_POST['cart_id'];
-
-$db = mysqli_connect('localhost', 'root', '', 'db_kstore');
 $sql="DELETE FROM cart WHERE cart_id = $cart_id";
 $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
 

@@ -1,8 +1,7 @@
 
 <?php
+include '../db_connect.php';
 $user_id = $_REQUEST['user_id'];
-$db = mysqli_connect('localhost', 'root', '', 'db_kstore');
-
 
     $response_array['data'] = array();
     $sql2 = "SELECT * FROM `transactions` WHERE user_id='$user_id' ORDER BY trans_id DESC LIMIT 0, 1;";

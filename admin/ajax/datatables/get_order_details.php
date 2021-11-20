@@ -1,6 +1,5 @@
 <?php
-    $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-    $db = mysqli_select_db($conn,"db_kstore");
+      include '../../../db_connect.php';
     $transaction_id = $_POST['transaction_id'];
     $sql = "SELECT * FROM cart where user_id = '3' and transaction_id = '$transaction_id'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));

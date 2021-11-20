@@ -1,10 +1,8 @@
 <?php
+
+include '../db_connect.php';
 $username = $_REQUEST['username'];
 $password = $_REQUEST['password'];
-// connect to database
-$db = mysqli_connect('localhost', 'root', '', 'db_kstore');
-
-
     $pass = md5($password);
 
     $query = "SELECT * FROM users WHERE username='$username' AND password='$pass'";

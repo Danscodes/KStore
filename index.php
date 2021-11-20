@@ -8,7 +8,7 @@ include('functions.php');
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel = "stylesheet" type="text/css" href="css/responsive.css" />
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<title>Project Board</title>
+	<title>WABA Mart</title>
 <?php 
   if (!isset($_SESSION['user'])) {
   	$_SESSION['msg'] = "You must log in first";

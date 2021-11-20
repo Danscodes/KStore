@@ -1,6 +1,5 @@
 <?php
-    $conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-    $db = mysqli_select_db($conn,"db_kstore");
+     include '../../../db_connect.php';
     $sql = "SELECT * FROM users order by user_id DESC";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 

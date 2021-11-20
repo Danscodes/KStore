@@ -1,8 +1,8 @@
 
 <?php
+include '../db_connect.php';
 include '../functions.php'; 
 $user_id = $_REQUEST['user_id'];
-$db = mysqli_connect('localhost', 'root', '', 'db_kstore');
 $sql = "SELECT * FROM `cart` WHERE user_id='$user_id' and status !='finished'";
 $q = mysqli_query($db,$sql) or die (mysqli_error($db));
 

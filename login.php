@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Project Board</title>
+	<title>WABA Mart</title>
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
-$conn = mysqli_connect("localhost","root","") or die (mysqli_error($conn));
-$db = mysqli_select_db($conn,"db_kstore");
+   include '../db_connect.php';
 $sql2 = "SELECT * FROM category";
 $q2 = mysqli_query($conn,$sql2) or die (mysqli_error($conn));
 $sql3 = "SELECT * FROM category";

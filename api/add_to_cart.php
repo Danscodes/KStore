@@ -1,4 +1,5 @@
 <?php
+include '../db_connect.php';
 $product_id = $_REQUEST['product_id'];
 $product_name = $_REQUEST['product_name'];
 $user_id  = $_REQUEST['user_id'];
@@ -6,7 +7,6 @@ $qty  = $_REQUEST['qty'];
 // connect to database
 
 $response_array['data'] = array();
-$db = mysqli_connect('localhost', 'root', '', 'db_kstore');
         $sql2 = "SELECT * FROM transactions where user_id = '$user_id'";
       
         $q2 = mysqli_query($db,$sql2) or die (mysqli_error($conn));
