@@ -55,7 +55,7 @@ function product(){
 	// register user if there are no errors in the form
 	if (count($errors) == 0) {
 		$query = "INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`) VALUES (NULL, '
-		$category', '$product_name', '$category');";
+		$category', '$product_name', '$price');";
 		mysqli_query($db, $query);
 		header('location: index.php?page=product');	
 

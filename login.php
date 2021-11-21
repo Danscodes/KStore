@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>WABA Mart</title>
+	<title>Waba Mart</title>
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>

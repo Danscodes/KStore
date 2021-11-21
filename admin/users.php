@@ -210,21 +210,11 @@ function selected_id(val){
 	document.getElementById("u_username").value = val.username;
 	document.getElementById("u_name").value = val.name;
 	document.getElementById("u_email").value = val.email;
-	// document.getElementById("u_user_type").value = val.user_type;
+	document.getElementById("u_user_type").value = val.user_type;
 	// document.getElementById("u_user_group").value =val.group_id;
 	document.getElementById("u_password").value = val.password;
 	document.getElementById("u_c_password").value = val.password;
 
-	if(val.user_type=="user"){
-		$("#u_user_type").val(val.user_type);
-	
-		$("#u_user").show()
-		$("#u_user_group").val(val.group_id);
-	}else{
-		$("#u_user_type").val(val.user_type);
-		$("#u_user").hide()
-	
-	}
 
 
 }

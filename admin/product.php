@@ -48,9 +48,15 @@ $q3= mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 									<label>Price</label>
 									<input type="text" name="price" >
 								</div>
-								<div class="custom-select" style="width:500px;">
+								<div class="custom-select">
 								<label>Select Category</label>
-								<select name="category" id="category">
+								<select name="category" id="category" style="  height: 40px;
+									width: 93%;
+									padding: 5px 10px;
+									background: white;
+									font-size: 16px;
+									border-radius: 5px;
+									border: 1px solid gray;">
 								<?php
 									while($row = mysqli_fetch_assoc($q2))
 									{

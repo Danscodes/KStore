@@ -11,7 +11,7 @@ include('../functions.php');
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
 	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
-	<title>KSTORE</title>
+	<title>Waba Mart</title>
 <?php 
 	 if (!isAdmin()) {
 	  $_SESSION['msg'] = "You must log in first";
