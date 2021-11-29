@@ -36,13 +36,20 @@ $q3= mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 			    	</div>
 				    <div class="modal-body">
 				    	<div class="form-body">
-				    		<form method="post" action="index.php?page=users.php">
+						<form action="add_product.php" method="post" enctype="multipart/form-data">
 
 								<?php echo display_error(); ?>
 
 								<div class="input-group">
 									<label>Product Name</label>
 									<input type="text" name="productname">
+								</div>
+								<div>
+								<img id="blah" src="#" alt="your image" style="width: 100%; /* or any custom size */
+							height: 100%; 
+							object-fit: contain;"/>
+								<input type='file'  name="fileToUpload" id="fileToUpload" onchange="readURL(this);" />
+															
 								</div>
 								<div class="input-group">
 									<label>Price</label>
@@ -109,6 +116,16 @@ $q3= mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 								<label>Product Name</label>
 								<input type="text" name="u_productname" id="u_productname">
 							</div>
+
+								<div>
+								<img id="update_img" src="#" alt="your image" style="width: 100%; /* or any custom size */
+							height: 100%; 
+							object-fit: contain;"/>
+								<input type='file'  name="u_fileToUpload" id="u_fileToUpload" onchange="u_readURL(this);" />
+															
+								</div>
+
+
 							<div class="input-group">
 								<label>Price</label>
 								<input type="text" name="u_price"  id="u_price">
@@ -207,6 +224,7 @@ function selected_id(val){
 	document.getElementById("u_productname").value = val.product_name;
 	document.getElementById("u_price").value = val.price;
 	document.getElementById("u_category").value = val.category_id;
+	document.getElementById("update_img").src = val.file_path;
 }
 
 
@@ -269,6 +287,34 @@ function delete_file(val){
 }
 }
 
+function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width("100%")
+                        .height("100%");
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+		function u_readURL(input) {
+			
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#update_img')
+                        .attr('src', e.target.result)
+						.width("100%")
+                        .height("100%");                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
 </script>
 </body>
 </html>

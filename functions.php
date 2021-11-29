@@ -54,8 +54,8 @@ function product(){
 
 	// register user if there are no errors in the form
 	if (count($errors) == 0) {
-		$query = "INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price`) VALUES (NULL, '
-		$category', '$product_name', '$price');";
+		$query = "INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price` ,`file_path`) VALUES (NULL, '
+		$category', '$product_name', '$price', '$target_file');";
 		mysqli_query($db, $query);
 		header('location: index.php?page=product');	
 
@@ -102,6 +102,10 @@ function register(){
 	$role = e($_POST['user_type']);
 	$email = e($_POST['email']);
 	$pass    =  e($_POST['password_1']);
+	$contact_no    =  e($_POST['contact_no']);
+	$age    =  e($_POST['age']);
+	$gender    =  e($_POST['gender']);
+	$address    =  e($_POST['address']);
 	// form validation: ensure that the form is correctly filled
 	if (empty($username)) { 
 		array_push($errors, "Username is required"); 
@@ -116,14 +120,14 @@ function register(){
 
 		if (isset($_POST['user_type'])) {
 			$user_type = e($_POST['user_type']);
-			$query = "INSERT INTO users (username, name, email, user_type, password) 
-					  VALUES('$username', '$name', '$email', '$user_type', '$password')";
+			$query = "INSERT INTO users (username, name, email, user_type, password,contact_no,age,sex,address) 
+					  VALUES('$username', '$name', '$email', '$user_type', '$password','$contact_no','$age','$gender','$address')";
 			mysqli_query($db, $query);
 			$_SESSION['success']  = "New user successfully created!!";
 			header('location: ../admin/index.php?page=users');
 		}else{
-			$query = "INSERT INTO users (username, name, email, user_type, password) 
-					  VALUES('$username', '$name', '$email', '$user_type', '$password')";
+			$query = "INSERT INTO users (username, name, email, user_type, password,contact_no,age,sex,address) 
+					  VALUES('$username', '$name', '$email', '$user_type', '$password','$contact_no','$age','$gender','$address')";
 			mysqli_query($db, $query);
 
 			// get id of the created user

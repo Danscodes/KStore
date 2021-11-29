@@ -1,14 +1,14 @@
 <?php
 
 include ('../db_connect.php');
-$u_product_id = $_POST['u_product_id'];
-$u_productname    =  $_POST['u_productname'];
-$u_price    = $_POST['u_price'];
-$u_category    = $_POST['u_category'];
+
+$product_name    =  $_POST['productname'];
+$price    = $_POST['price'];
+$category    = $_POST['category'];
 
 $target_dir = "../uploads/";
-$target_file = $target_dir . basename($_FILES["u_fileToUpload"]["name"]);
-$filename = $_FILES["u_fileToUpload"]["name"];
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$filename = $_FILES["fileToUpload"]["name"];
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
@@ -16,7 +16,7 @@ $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 // Check if file already exists
 if (file_exists($target_file)) {
-	$sql="UPDATE product SET category_id = '$u_category', product_name = '$u_productname',  price = '$u_price' WHERE product_id = $u_product_id";
+  $sql="INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price` ,`file_path`) VALUES (NULL, '$category', '$product_name', '$price', '')";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
     if($q){
       header('location: ../admin/index.php?page=product');
@@ -26,7 +26,7 @@ if (file_exists($target_file)) {
 }
 
 // Check file size
-if ($_FILES["u_fileToUpload"]["size"] > 500000) {
+if ($_FILES["fileToUpload"]["size"] > 500000) {
   echo "Sorry, your file is too large.";
   $uploadOk = 0;
 }
@@ -36,11 +36,11 @@ if ($uploadOk == 0) {
   echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-  if (move_uploaded_file($_FILES["u_fileToUpload"]["tmp_name"], $target_file)) {
+  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
       echo "hello";
     date_default_timezone_set('Asia/Manila');
     $todays_date = date("Y-m-d H:i:s");
-    $sql="UPDATE product SET category_id = '$u_category', product_name = '$u_productname',  price = '$u_price', file_path = '$target_file' WHERE product_id = $u_product_id";
+    $sql="INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price` ,`file_path`) VALUES (NULL, '$category', '$product_name', '$price', '$target_file')";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
     if($q){
       header('location: ../admin/index.php?page=product');

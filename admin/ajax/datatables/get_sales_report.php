@@ -1,8 +1,8 @@
 <?php
      include '../../../db_connect.php';
-    $sql = "SELECT * FROM transactions";
+    $sql = "SELECT * FROM transactions where status='finished'";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
-
+    $total_amount = 0;
         $response["data"] = array();
         while ($data = mysqli_fetch_array($q)) {
             $list["trans_id"] = $data["trans_id"];
@@ -38,9 +38,9 @@
                 $total_cart += $cart_data["quantity"]*$price;
              
             }
-
+            $total_amount +=  $total_cart;
             $list["total_cart"] = number_format((float)$total_cart, 2, '.', '');
-          
+            $list["total_amount"] = number_format((float)$total_amount, 2, '.', '');
             if($status=="pickup"){
                 $list["status"] = "for delivery";
             }else{

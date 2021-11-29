@@ -43,6 +43,26 @@
 									<input type="email" name="email">
 								</div>
 								<div class="input-group">
+									<label>Age</label>
+									<input type="number" name="age">
+								</div>
+								<div class="input-group">
+									<label>Contact No</label>
+									<input type="text" name="contact_no">
+								</div>
+								<div class="input-group">
+									<label>Address</label>
+									<input type="text" name="address">
+								</div>
+								<div class="input-group">
+									<label>Gender</label>
+									<select name="gender" id="user_type" >
+									
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+									</select>
+								</div>
+								<div class="input-group">
 									<label>User type</label>
 									<select name="user_type" id="user_type" >
 									
@@ -101,6 +121,32 @@
 								<div class="input-group">
 									<label>Email</label>
 									<input type="email" name="u_email" id="u_email">
+								</div>
+								<div class="input-group">
+									<label>Age</label>
+									<input type="number" name="u_age" id ="u_age" >
+								</div>
+								<div class="input-group">
+									<label>Contact No</label>
+									<input type="text" name="u_contact_no" id="u_contact_no">
+								</div>
+								<div class="input-group">
+									<label>Address</label>
+									<input type="text" name="u_address" id="u_address">
+								</div>
+								<div class="input-group">
+									<label>Gender</label>
+									<select name="u_gender" id="u_gender" style="  height: 40px;
+									width: 93%;
+									padding: 5px 10px;
+									background: white;
+									font-size: 16px;
+									border-radius: 5px;
+									border: 1px solid gray;">
+									
+										<option value="male">Male</option>
+										<option value="female">Female</option>
+									</select>
 								</div>
 								<div class="input-group">
 									<label>User type</label>
@@ -202,7 +248,6 @@ function get_products_data(){
 
   
 function selected_id(val){
-	
 	var modals = document.querySelectorAll('.modal');
 	modal = document.querySelector('#UpdateFile');
 	modal.style.display = "block";
@@ -211,11 +256,11 @@ function selected_id(val){
 	document.getElementById("u_name").value = val.name;
 	document.getElementById("u_email").value = val.email;
 	document.getElementById("u_user_type").value = val.user_type;
-	// document.getElementById("u_user_group").value =val.group_id;
-	document.getElementById("u_password").value = val.password;
-	document.getElementById("u_c_password").value = val.password;
+	document.getElementById("u_gender").value = val.gender;
 
-
+	document.getElementById("u_age").value = val.age;	
+	document.getElementById("u_contact_no").value = val.contact_no;	
+	document.getElementById("u_address").value = val.address;	
 
 }
 

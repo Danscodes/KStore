@@ -32,6 +32,7 @@ include('../functions.php');
 			<li <?php if($load == 'category') {echo 'class="active"';} ?>><a href="index.php?page=category"><i class='bx bx-product-alt'></i>Category</a></li>
 		   
 			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=transactions"><i class='bx bx-product-alt'></i>Transactions</a></li>
+			<li <?php if($load == 'sales_report') {echo 'class="active"';} ?>><a href="index.php?page=sales_report"><i class='bx bx-product-alt'></i>Sales Report</a></li>
 		   
 		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li>
 		    
@@ -70,6 +71,9 @@ include('../functions.php');
 	            case 'transactions':
 	              require_once('transactions.php');
 	              break;
+				  case 'sales_report':
+					require_once('sales_report.php');
+					break;
 	            case 'users':
 	              require_once('users.php');
 	              break;

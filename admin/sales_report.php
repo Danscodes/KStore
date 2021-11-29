@@ -3,6 +3,20 @@
 
  include_once('../functions.php')
 ?>
+<style>
+
+label {
+  display: block;
+}
+input {
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 3px 5px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+  width: 190px;
+}
+</style>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -11,7 +25,7 @@
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-    <h1>TRANSACTIONS</h1>
+    <h1>Sales Report</h1>
 
 <div id="tbody">
 
@@ -22,16 +36,23 @@
                   
                       <th width="35%">Transaction Number</th>
                       <th width="20%">User</th>
+                      <th width="20%">Date of Transaction</th>
                       <th width="25%">Total</th>
-                      <th width="25%">Date updated</th>
-                      <th width="25%">Status</th>
-                      <th width="20%">Action</th>
-             
+                   
                     </tr>
                   </thead>
                   <tbody>
                
                   </tbody>
+                  <tfoot >
+                  <tr>
+                  <th></th>
+                  <th></th>
+                     <th>TOTAL SALES:</th>
+                    
+                     <th id="total_amt"></th>
+                  </tr>
+                </tfoot>
                 </table>
 	
 	</div>
@@ -50,7 +71,7 @@ function get_products_data(){
     
       "ajax":{
         "type":"POST",
-        "url":"ajax/datatables/get_transactions.php",
+        "url":"ajax/datatables/get_sales_report.php",
         "data":"",
         "processing":true
       },
@@ -62,33 +83,27 @@ function get_products_data(){
         "data":"user_name",
       },
       {
-        "data":"total_cart",
-      },
-      {
         "data":"date_updated",
       },
       {
-        "data":"status",
-      },
-      {
-        "mRender": function(data,type,row){
-          if(row.status=="requested"){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='accept_order("+JSON.stringify(row)+")'>Accept</a><a>Cancel</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
-     
-          }else if(row.status=="for delivery"){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='finish_order("+JSON.stringify(row)+")'>Finish</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
-     
-          }else if(row.status=="finished"){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
-     
-          }
-
-          // return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='finish_order("+JSON.stringify(row)+")'>Finish</a><a  onclick='accept_order("+JSON.stringify(row)+")'>Accept</a><a>Cancel</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
-     
+        "data":"total_cart",
+      }
+    ],
+    "createdRow": function( row, data, dataIndex) {
+        console.log(data.total_amount);
        
-       }
+          $("#total_amt").html(data.total_amount);
+       
       },
-      ]
+      "initComplete": function( settings, json ) {
+        var api = this.api();
+        if(api.rows().count() == 0){
+
+          $("#total_amt").html("0.00");
+
+        }
+      }
+
     });
   }
 

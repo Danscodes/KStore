@@ -11,6 +11,10 @@
             $list["email"] = $data["email"];
             $list["user_type"] = $data["user_type"];
             $list["password"] = $data["password"];
+            $list["age"] = $data["age"];
+            $list["gender"] = $data["sex"];
+            $list["address"] = $data["address"];
+            $list["contact_no"] = $data["contact_no"];
             array_push($response["data"], $list);
         }
     	echo json_encode($response);

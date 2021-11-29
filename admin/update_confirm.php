@@ -10,7 +10,7 @@ $password = md5($password);
 
 
 
-$sql = "UPDATE users SET username = '$username', name = '$name',  email = '$email', user_type = '$user_type', password = '$password' WHERE user_id = $user_id " ; 
+$sql = "UPDATE users SET username = '$username', name = '$name',  email = '$email', user_type = '$user_type', password = '$password' WHERE user_id = $user_id"; 
 $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
 
 header ("location: ../admin/index.php?page=users");
