@@ -7,15 +7,15 @@ $qty  = $_REQUEST['qty'];
 // connect to database
 
 $response_array['data'] = array();
-        $sql2 = "SELECT * FROM transactions where user_id = '$user_id'";
+        $sql2 = "SELECT * FROM transactions where user_id = '$user_id' and status!='finished'";
       
         $q2 = mysqli_query($db,$sql2) or die (mysqli_error($conn));
         $count_trans = mysqli_num_rows($q2);
         $r = mysqli_fetch_array($q2);
 if($count_trans>0){
-    if($r['status']=='requested'){
+    if($r['status']=='requested'||$r['status']=='pickup'){
         $response["status"] =0;
-        $response["message"] ='Unable to add cart if cart status is submitted order.';
+        $response["message"] ='Unable to add cart if cart status is submitted order or for delivery.';
         array_push($response_array['data'], $response);
     }else{
         $sql3 = "SELECT * FROM cart where product_id = '$product_id' and status = 'pending'";
