@@ -28,13 +28,13 @@ include('../functions.php');
 	<div class="header">
 		<div class="navbar">
 			<ul>
-			<li <?php if($load == 'product') {echo 'class="active"';} ?>><a href="index.php?page=product"><i class='bx bx-product-alt'></i>Product</a></li>
-			<li <?php if($load == 'category') {echo 'class="active"';} ?>><a href="index.php?page=category"><i class='bx bx-product-alt'></i>Category</a></li>
+			<li <?php if($load == 'product') {echo 'class="active"';} ?>><a href="index.php?page=product"><i class='bx bx-cart-alt'></i> Product</a></li>
+			<li <?php if($load == 'category') {echo 'class="active"';} ?>><a href="index.php?page=category"><i class='bx bx-category'></i> Category</a></li>
 		   
-			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=transactions"><i class='bx bx-product-alt'></i>Transactions</a></li>
-			<li <?php if($load == 'sales_report') {echo 'class="active"';} ?>><a href="index.php?page=sales_report"><i class='bx bx-product-alt'></i>Sales Report</a></li>
+			<li <?php if($load == 'transactions') {echo 'class="active"';} ?>><a href="index.php?page=transactions"><i class='bx bx-wallet'></i>Transactions</a></li>
+			<li <?php if($load == 'sales_report') {echo 'class="active"';} ?>><a href="index.php?page=sales_report"><i class='bx bx-window-alt'> </i> Sales Report</a></li>
 		   
-		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-file-blank'></i>Users</a></li>
+		      <li <?php if($load == 'users') {echo 'class="active"';} ?>><a href="index.php?page=users"><i class='bx bx-user'> </i> Users</a></li>
 		    
 
 				<li style="float: right;"><small>
@@ -44,7 +44,7 @@ include('../functions.php');
                               unset($_SESSION['success']);
                             ?>
                           <?php endif ?></i>
-              </small><img src="../images/user.png" >
+              </small>
                    <?php  if (isset($_SESSION['user'])) : ?>
                       <strong><?php echo $_SESSION['user']['name']; ?></strong>
                       <small>
