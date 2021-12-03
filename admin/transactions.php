@@ -73,7 +73,7 @@ function get_products_data(){
       {
         "mRender": function(data,type,row){
           if(row.status=="requested"){
-            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='accept_order("+JSON.stringify(row)+")'>Accept</a><a>Cancel</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
+            return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='accept_order("+JSON.stringify(row)+")'>Accept</a><a  onclick='cancel_transaction("+JSON.stringify(row)+")'>Cancel</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
      
           }else if(row.status=="for delivery"){
             return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a  onclick='finish_order("+JSON.stringify(row)+")'>Finish</a><a  href='index.php?page=cart_details&transaction_id="+JSON.stringify(row.trans_id)+"&user_id="+JSON.stringify(row.user_id)+"'>View Order</a></div></div>";
@@ -92,15 +92,15 @@ function get_products_data(){
     });
   }
 
-  function delete_file(val){
-	if (confirm('Are you sure you want to delete '+val.trans_id+'?')) {
+  function cancel_transaction(val){
+	if (confirm('Are you sure you want to cancel '+val.trans_id+'?')) {
   // Save it!
-  url = "./ajax/delete_file.php";
+  url = "./ajax/cancel_transaction.php";
     
       $.post(url,{trans_id: val.trans_id}, function(data){
 	    	console.log(data);
             if(data == 1){
-				window.location.href = "index.php?page=files";
+              window.location.href = "index.php?page=transactions";
     		}else{
      
  			}
@@ -135,6 +135,26 @@ function accept_order(val){
 }
 }
 
+function cancel_order(val){
+	if (confirm('Are you sure you want to accept order? '+val.trans_id+'?')) {
+  // Save it!
+  url = "./ajax/finish_transaction.php";
+    
+      $.post(url,{trans_id: val.trans_id,total:val.total_cart}, function(data){
+		console.log(data);
+            if(data == 1){
+				window.location.href = "index.php?page=transactions";
+    		}else{
+     
+ 			}
+});
+
+  console.log('Thing was saved to the database.');
+} else {
+  // Do nothing!
+  console.log('Thing was not saved to the database.');
+}
+}
 
 function finish_order(val){
 	if (confirm('Are you sure you want to accept order? '+val.trans_id+'?')) {

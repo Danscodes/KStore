@@ -18,7 +18,7 @@
                         }
             $list["product_name"] = $data["product_name"];
             $list["file_path"] = $data["file_path"];
-            $list["price"] = number_format((float)$data['price'], 2, '.', '');
+            $list["price"] = number_format((float)$data['price'], 2);
             array_push($response["data"], $list);
         }
     	echo json_encode($response);

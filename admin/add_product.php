@@ -17,11 +17,11 @@ $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 // Check if file already exists
 if (file_exists($target_file)) {
   $sql="INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price` ,`file_path`) VALUES (NULL, '$category', '$product_name', '$price', '')";
-    $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+    $q = mysqli_query($conn,$sql);
     if($q){
       header('location: ../admin/index.php?page=product');
     }else{
-      echo "Sorry, there was an error uploading your file.";
+      echo "Sorry, there was an error or duplicate product name.";
     }
 }
 
@@ -37,15 +37,14 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-      echo "hello";
     date_default_timezone_set('Asia/Manila');
     $todays_date = date("Y-m-d H:i:s");
     $sql="INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price` ,`file_path`) VALUES (NULL, '$category', '$product_name', '$price', '$target_file')";
-    $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
+    $q = mysqli_query($conn,$sql);
     if($q){
       header('location: ../admin/index.php?page=product');
     }else{
-      echo "Sorry, there was an error uploading your file.";
+      echo "Sorry, there was an error or duplicate product name.";
     }
   } else {
     echo "Sorry, there was an error uploading your file.";

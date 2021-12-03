@@ -39,7 +39,7 @@
              
             }
 
-            $list["total_cart"] = number_format((float)$total_cart, 2, '.', '');
+            $list["total_cart"] = number_format((float)$total_cart, 2);
           
             if($status=="pickup"){
                 $list["status"] = "for delivery";

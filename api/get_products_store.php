@@ -11,7 +11,7 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
     while($r = mysqli_fetch_assoc($q))
     {
         $response["product_id"] =$r['product_id'];
-        $response["product_name"] =$r['product_name']."   -   ".number_format((float)$r['price'], 2, '.', '')." Php";
+        $response["product_name"] =$r['product_name']."   -   ".number_format((float)$r['price'], 2)." Php";
         
 	    array_push($response_array['data'], $response);
     }

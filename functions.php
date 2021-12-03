@@ -259,7 +259,5 @@ function get_total_price($database,$user_id){
 		$total_price +=$price*$r["quantity"];
     }
 
-
-
-	return $total_price;
+	return number_format((float)$total_price, 2);
 }
