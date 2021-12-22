@@ -55,6 +55,11 @@ $q3= mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 									<label>Price</label>
 									<input type="text" name="price" >
 								</div>
+
+								<div class="input-group">
+									<label>Stocks</label>
+									<input type="text" name="stocks" >
+								</div>
 								<div class="custom-select">
 								<label>Select Category</label>
 								<select name="category" id="category" style="  height: 40px;
@@ -130,6 +135,12 @@ $q3= mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 								<label>Price</label>
 								<input type="text" name="u_price"  id="u_price">
 							</div>
+
+							<div class="input-group">
+									<label>Stocks</label>
+									<input type="text" name="u_stocks" id="u_stocks">
+							</div>
+
 							<div  class="input-group" >
 							<label>Select Category</label>
 							<select name="u_category" id="u_category" style="  height: 40px;
@@ -166,8 +177,9 @@ $q3= mysqli_query($conn,$sql3) or die (mysqli_error($conn));
 			  <thead>
 				<tr>
 				<th width="25%">Product Name</th>
-				<th width="35%">Category</th>
-			    <th width="35%">Price</th>
+				<th width="25%">Category</th>
+			    <th width="25%">Price</th>
+				<th width="15%">Stocks</th>
 		
 			    <th width="10%">Action</th>
 				</tr>
@@ -201,10 +213,13 @@ function get_products_data(){
 	  {
         "data":"category_name"
       },
+	  
 	  {
         "data":"price",
       },
-   
+	  {
+        "data":"stocks"
+      },
       {
         "mRender": function(data,type,row){
             return "<div class='dropdown'> <button class='dropbtn'>Action</button><div class='dropdown-content'><a onclick='selected_id("+JSON.stringify(row)+")'>Edit</a><a onclick='delete_file("+JSON.stringify(row)+")'>Delete</a></div></div>";
@@ -216,7 +231,6 @@ function get_products_data(){
 
     
 function selected_id(val){
-	
 	var modals = document.querySelectorAll('.modal');
 	modal = document.querySelector('#UpdateFile');
 	modal.style.display = "block";
@@ -224,6 +238,7 @@ function selected_id(val){
 	document.getElementById("u_productname").value = val.product_name;
 	document.getElementById("u_price").value = val.price;
 	document.getElementById("u_category").value = val.category_id;
+	document.getElementById("u_stocks").value = val.stocks;
 	document.getElementById("update_img").src = val.file_path;
 }
 

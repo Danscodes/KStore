@@ -27,6 +27,17 @@ $q = mysqli_query($db,$sql) or die (mysqli_error($db));
 
             $response["total_price"] =get_total_price($db,$user_id);     
               
+            $trans_id= $r["transaction_id"];
+            $sql3 = "SELECT * FROM transactions where trans_id = '$trans_id'";
+            $q3 = mysqli_query($db,$sql3) or die (mysqli_error($db));
+            $price = 0;
+                        while($row2 = mysqli_fetch_assoc($q3))
+                        {
+                           
+                            $response["minutes"] = $row2['minutes'];
+                            $response["delivery_fee"] = $row2['delivery_fee'];
+                        }
+
         $response["product_name"] =$r['product_name'];       
         $response["quantity"] =$r['quantity'];
 	    array_push($response_array['data'], $response);

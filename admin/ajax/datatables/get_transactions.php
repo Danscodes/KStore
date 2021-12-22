@@ -5,6 +5,7 @@
 
         $response["data"] = array();
         while ($data = mysqli_fetch_array($q)) {
+            $delivery_fee = $data["delivery_fee"];
             $list["trans_id"] = $data["trans_id"];
             $list["user_id"] = $data["user_id"];
             $list["date_updated"] = date("Y-m-d h:i:s a", strtotime($data["date_updated"]));
@@ -39,7 +40,7 @@
              
             }
 
-            $list["total_cart"] = number_format((float)$total_cart, 2);
+            $list["total_cart"] = number_format((float)$total_cart+ $delivery_fee, 2);
           
             if($status=="pickup"){
                 $list["status"] = "for delivery";

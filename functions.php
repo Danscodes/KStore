@@ -37,6 +37,7 @@ function product(){
 	$product_name    =  e($_POST['productname']);
 	$price    =  e($_POST['price']);
 	$category    =  e($_POST['category']);
+	$stocks    =  e($_POST['stocks']);
 
 	// form validation: ensure that the form is correctly filled
 	if (empty($product_name)) { 
@@ -54,8 +55,8 @@ function product(){
 
 	// register user if there are no errors in the form
 	if (count($errors) == 0) {
-		$query = "INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price` ,`file_path`) VALUES (NULL, '
-		$category', '$product_name', '$price', '$target_file');";
+		$query = "INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `price` ,`file_path`,`qty`) VALUES (NULL, '
+		$category', '$product_name', '$price', '$target_file','$stocks');";
 		mysqli_query($db, $query);
 		header('location: index.php?page=product');	
 
@@ -149,6 +150,18 @@ function getUserById($id){
 	$user = mysqli_fetch_assoc($result);
 	return $user;
 }
+
+
+// return user array from their id
+function check_remaining_stock($qty,$product_id){
+	global $db;
+	$query = "SELECT * FROM product WHERE qty >= '$qty' and product_id='$product_id'";
+	$result = mysqli_query($db, $query);
+
+	$count = mysqli_num_rows($result);
+	return $count;
+}
+
 
 // escape string
 function e($val){

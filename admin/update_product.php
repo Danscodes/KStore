@@ -4,6 +4,7 @@ include ('../db_connect.php');
 $u_product_id = $_POST['u_product_id'];
 $u_productname    =  $_POST['u_productname'];
 $u_price    = $_POST['u_price'];
+$u_stocks    = $_POST['u_stocks'];
 $u_category    = $_POST['u_category'];
 
 $target_dir = "../uploads/";
@@ -16,7 +17,7 @@ $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 // Check if file already exists
 if (file_exists($target_file)) {
-	$sql="UPDATE product SET category_id = '$u_category', product_name = '$u_productname',  price = '$u_price' WHERE product_id = $u_product_id";
+	$sql="UPDATE product SET category_id = '$u_category', product_name = '$u_productname',  price = '$u_price', qty = '$u_stocks' WHERE product_id = $u_product_id";
     $q = mysqli_query($conn,$sql) or die (mysqli_error($conn));
     if($q){
       header('location: ../admin/index.php?page=product');

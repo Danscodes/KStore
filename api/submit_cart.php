@@ -6,10 +6,19 @@ $user_id = $_REQUEST['user_id'];
 $sql = "SELECT * FROM `cart` WHERE user_id='$user_id';";
 $q = mysqli_query($db,$sql) or die (mysqli_error($conn));
 
+$min=5;
+$max=20;
+
+$minutes =  rand($min,$max);
+$delivery_fee = 0;
+if($minutes>10){
+    $delivery_fee = 100;
+}else{
+    $delivery_fee = 50;
+}
 
 
-
-    $query = "INSERT INTO `transactions` (`trans_id`, `user_id`, `transaction_date`, `status`) VALUES (NULL, '$user_id', '2021-10-29 20:17:10.000000','requested'); ";
+    $query = "INSERT INTO `transactions` (`trans_id`, `user_id`, `transaction_date`, `status`,`total`,`minutes`,`delivery_fee`) VALUES (NULL, '$user_id', '2021-10-29 20:17:10.000000','requested','0','$minutes','$delivery_fee'); ";
     $results = mysqli_query($db, $query);
     
     $response_array['data'] = array();

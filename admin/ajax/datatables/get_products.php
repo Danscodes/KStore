@@ -16,7 +16,9 @@
 						{
                             $list["category_name"] =  $r['name'];
                         }
+                        $list["stocks"] = $data["qty"];
             $list["product_name"] = $data["product_name"];
+            $list["stocks"] = $data["qty"];
             $list["file_path"] = $data["file_path"];
             $list["price"] = number_format((float)$data['price'], 2);
             array_push($response["data"], $list);
